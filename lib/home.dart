@@ -1,7 +1,9 @@
 import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:foodrecipe/Models/Recipe.dart';
+import 'package:foodrecipe/RecipeWeb.dart';
 import 'package:http/http.dart';
 
 class Home extends StatefulWidget {
@@ -155,7 +157,9 @@ class _HomeState extends State<Home> {
                               shrinkWrap: true,
                               itemBuilder: (context, index) {
                                 return InkWell(
-                                  onTap: () => {},
+                                  onTap: () => {
+                                    Navigator.push(context, MaterialPageRoute(builder: (context)=>RecipeWeb(_recipe[index].appurl)))
+                                  },
                                   child: Card(
                                     shape: BeveledRectangleBorder(
                                         borderRadius:
