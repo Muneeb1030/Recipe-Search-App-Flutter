@@ -1,9 +1,11 @@
 import 'dart:convert';
 
-import 'package:flutter/material.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:connectivity/connectivity.dart';
 import 'package:foodrecipe/Models/Recipe.dart';
 import 'package:foodrecipe/RecipeWeb.dart';
+import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:http/http.dart';
 
 class Home extends StatefulWidget {
@@ -17,6 +19,22 @@ class _HomeState extends State<Home> {
   bool _isloading = true;
   List<RecipeModel> _recipe = <RecipeModel>[];
   TextEditingController _searchController = new TextEditingController();
+
+  Future<bool> CheckConnectivity() async {
+    var conectivityResult = await (Connectivity().checkConnectivity());
+    if (conectivityResult == ConnectivityResult.none) {
+      Fluttertoast.showToast(
+        msg: "No Internet Connection",
+        toastLength: Toast.LENGTH_SHORT,
+        fontSize: 16,
+        backgroundColor: Colors.grey,
+        textColor: Colors.white,
+      );
+      return false;
+    }
+    return true;
+  }
+
   getRecipe(String query) async {
     String url =
         "https://api.edamam.com/api/recipes/v2?type=public&q=$query&app_id=d9ab6380&app_key=70e8daf9af88f9161f5838af2c9ac4b7";
@@ -40,7 +58,11 @@ class _HomeState extends State<Home> {
   @override
   void initState() {
     super.initState();
-    getRecipe("Pizza");
+    CheckConnectivity().then((_isConnected) {
+      if (_isConnected) {
+        getRecipe("Pizza");
+      }
+    });
   }
 
   @override
