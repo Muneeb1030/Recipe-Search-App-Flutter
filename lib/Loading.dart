@@ -28,12 +28,6 @@ class _LoadingState extends State<Loading> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: PreferredSize(
-        preferredSize: Size.fromHeight(0),
-        child: AppBar(
-          backgroundColor: Colors.blue[500],
-        ),
-      ),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -64,22 +58,6 @@ class _LoadingState extends State<Loading> {
               color: Colors.white,
               size: 80.0,
             ),
-            Expanded(
-              child: Align(
-                alignment: Alignment.bottomCenter,
-                child: Text(
-                  "Author: Muneeb",
-                  style: TextStyle(
-                    fontSize: 20,
-                    color: Colors.white,
-                    fontWeight: FontWeight.w500,
-                  ),
-                ),
-              ),
-            ),
-            SizedBox(
-              height: 30,
-            )
           ],
         ),
       ),

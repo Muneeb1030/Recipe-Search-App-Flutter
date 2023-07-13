@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'API Keys/APIKey.dart';
 import 'package:connectivity/connectivity.dart';
 import 'package:foodrecipe/Models/Recipe.dart';
 import 'package:foodrecipe/RecipeWeb.dart';
@@ -37,7 +38,7 @@ class _HomeState extends State<Home> {
 
   getRecipe(String query) async {
     String url =
-        "https://api.edamam.com/api/recipes/v2?type=public&q=$query&app_id=d9ab6380&app_key=70e8daf9af88f9161f5838af2c9ac4b7";
+        "https://api.edamam.com/api/recipes/v2?type=public&q=$query&app_id=$appID&app_key=$appKey";
     Response response = await get(Uri.parse(url));
     Map map = jsonDecode(response.body);
 
@@ -68,12 +69,12 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: PreferredSize(
-        child: AppBar(
-          backgroundColor: Colors.blue[500],
-        ),
-        preferredSize: Size.fromHeight(0),
-      ),
+      // appBar: PreferredSize(
+      //   child: AppBar(
+      //     backgroundColor: Colors.blue[500],
+      //   ),
+      //   preferredSize: Size.fromHeight(0),
+      // ),
       body: SingleChildScrollView(
         child: Stack(
           children: <Widget>[
