@@ -103,19 +103,28 @@ class _HomeState extends State<Home> {
                           ),
                           Expanded(
                             child: TextField(
-                              cursorColor: Colors.blue.shade300,
-                              controller: _searchController,
-                              style: TextStyle(
-                                fontSize: 20,
-                                color: Colors.blue.shade500,
-                              ),
-                              decoration: InputDecoration(
-                                hintText: "Let's Cook Something",
-                                hintStyle:
-                                    TextStyle(color: Colors.blue.shade500),
-                                border: InputBorder.none,
-                              ),
-                            ),
+                                cursorColor: Colors.blue.shade300,
+                                controller: _searchController,
+                                style: TextStyle(
+                                  fontSize: 20,
+                                  color: Colors.blue.shade500,
+                                ),
+                                decoration: InputDecoration(
+                                  hintText: "Let's Cook Something",
+                                  hintStyle:
+                                      TextStyle(color: Colors.blue.shade500),
+                                  border: InputBorder.none,
+                                ),
+                                onSubmitted: ((value) => {
+                                      if (value.replaceAll(" ", "") != "")
+                                        {
+                                          setState(() {
+                                            _isloading = true;
+                                            _recipe = [];
+                                          }),
+                                          getRecipe(value)
+                                        }
+                                    })),
                           ),
                         ],
                       ),
@@ -158,7 +167,11 @@ class _HomeState extends State<Home> {
                               itemBuilder: (context, index) {
                                 return InkWell(
                                   onTap: () => {
-                                    Navigator.push(context, MaterialPageRoute(builder: (context)=>RecipeWeb(_recipe[index].appurl)))
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) => RecipeWeb(
+                                                _recipe[index].appurl)))
                                   },
                                   child: Card(
                                     shape: BeveledRectangleBorder(
@@ -245,7 +258,6 @@ class _HomeState extends State<Home> {
                             ),
                     ),
                   ),
-                  
                 ],
               ),
             ),
